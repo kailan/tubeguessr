@@ -22,4 +22,4 @@ Glitch has since closed the doors on their hosting service, so I have migrated t
 
 ## License?
 
-I am not the original author of this game, so I cannot license it. The original author retained the default Glitch license file in their project, but did not insert their name, so I am not able to provide a concrete answer to anyone's rights over this project. I maintain this repository in the interest of preserving and sharing this enjoyable game. Please refer to the [original article on Maps Mania][https://googlemapsmania.blogspot.com/2023/10/the-london-underground-map-quiz.html] for more information on the project's usage rights.
+I am not the original author of this game, so I cannot license it. The original author retained the default Glitch license file in their project, but did not insert their name, so I am not able to provide a concrete answer to anyone's rights over this project. I maintain this repository in the interest of preserving and sharing this enjoyable game. Please refer to the [original article on Maps Mania](https://googlemapsmania.blogspot.com/2023/10/the-london-underground-map-quiz.html) for more information on the project's usage rights.
