@@ -95,11 +95,11 @@ jobs:
         run: npm run fastly:deploy
         working-directory: compute-js
         env:
-          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+          FASTLY_API_TOKEN: ${{ secrets.FASTLY_API_KEY }}
 
       - name: Deploy content to Fastly
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: npm run fastly:publish
         working-directory: compute-js
         env:
-          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+          FASTLY_API_TOKEN: ${{ secrets.FASTLY_API_KEY }}
