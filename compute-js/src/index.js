@@ -1,11 +1,8 @@
 /// <reference types="@fastly/js-compute" />
-import { env } from "fastly:env";
 import { PublisherServer } from "@fastly/compute-js-static-publish";
 import rc from "../static-publish.rc.js";
 const publisherServer = PublisherServer.fromStaticPublishRc(rc);
 
-// eslint-disable-next-line no-restricted-globals
-addEventListener("fetch", (event) => event.respondWith(handleRequest(event)));
 async function handleRequest(event) {
   const request = event.request;
 
@@ -23,8 +20,8 @@ async function handleRequest(event) {
     return response;
   }
 
-  // Do custom things here!
-  // Handle API requests, serve non-static responses, etc.
-
   return new Response("Not found", { status: 404 });
 }
+
+// eslint-disable-next-line no-restricted-globals
+addEventListener("fetch", (event) => event.respondWith(handleRequest(event)));
