@@ -1,16 +1,26 @@
 # This file describes a Fastly Compute package. To learn more visit:
-# https://developer.fastly.com/reference/fastly-toml/
+# https://www.fastly.com/documentation/reference/compute/fastly-toml
 
-authors = [ "kailan@enviark.com" ]
+authors = ["kailan@enviark.com"]
 description = "A London Underground station guessing game"
 language = "javascript"
 manifest_version = 3
 name = "tubeguessr"
+service_id = "QYhKV5RGaqtsgNNMhtVre4"
+
+[local_server]
+
+  [local_server.kv_stores]
+
+    [local_server.kv_stores.site-content]
+      file = "./static-publisher/kvstore.json"
+      format = "json"
 
 [scripts]
-build = "npm run build"
+  build = "npm run build"
 
-[local_server.kv_stores]
-site-content = { file = "./static-publisher/kvstore.json", format = "json" }
+[setup]
 
-[setup.kv_stores.site-content]
+  [setup.kv_stores]
+
+    [setup.kv_stores.site-content]

@@ -17,6 +17,7 @@
   "private": true,
   "scripts": {
     "dev:publish": "npx @fastly/compute-js-static-publish publish-content --local",
+    "dev:build": "fastly compute build",
     "dev:start": "fastly compute serve",
     "fastly:deploy": "fastly compute publish",
     "fastly:publish": "npx @fastly/compute-js-static-publish publish-content",

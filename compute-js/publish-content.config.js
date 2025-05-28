@@ -8,14 +8,7 @@
 /** @type {import('@fastly/compute-js-static-publish').PublishContentConfig} */
 const config = {
   rootDir: "../public",
-  // excludeDirs: [ './node_modules' ],
-  // excludeDotFiles: true,
-  // includeWellKnown: true,
-  // kvStoreAssetInclusionTest: (assetKey) => true,
-  // contentCompression: [ 'br', 'gzip' ],
-  // contentTypes: [
-  //   { test: /.custom$/, contentType: 'application/x-custom', text: false },
-  // ],
+  contentCompression: [ 'br', 'gzip' ],
 
   // Server settings are saved to the KV Store per collection
   server: {

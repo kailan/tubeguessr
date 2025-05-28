@@ -1,0 +1,102 @@
+name: "Build and Deploy"
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.12.1
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Authenticate with Google Cloud
+        uses: 'google-github-actions/auth@v2'
+        with:
+          workload_identity_provider: 'projects/341125225283/locations/global/workloadIdentityPools/tubeguessr-gha/providers/github-actions'
+          service_account: 'tubeguessr-gha@devchat-archive.iam.gserviceaccount.com'
+
+      - name: Build Fastly service package
+        id: fastly-package
+        run: |
+          npm install
+          npm run dev:build
+        working-directory: compute-js
+        continue-on-error: true
+
+      - name: Initialize Terraform
+        run: terraform init
+
+      - name: Validate Terraform configuration
+        run: terraform validate
+
+      - name: Terraform plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+        env:
+          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+
+      - uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          script: |
+            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+
+            <details><summary>Show Plan</summary>
+
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+
+            </details>
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
+      - name: Exit if plan or package build failed
+        if: steps.plan.outcome == 'failure' || steps.fastly-package.outcome == 'failure'
+        run: exit 1
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
+        env:
+          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+
+      - name: Deploy service package to Fastly
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: npm run fastly:deploy
+        working-directory: compute-js
+        env:
+          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
+
+      - name: Deploy content to Fastly
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: npm run fastly:publish
+        working-directory: compute-js
+        env:
+          FASTLY_API_KEY: ${{ secrets.FASTLY_API_KEY }}
