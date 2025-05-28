@@ -49,12 +49,10 @@ to this section's matching END comment to see page-specific styles.
 /* Our remix on glitch button */
 .btn--remix {
   font-family: var(--font-family);
-  padding: 0.4rem 0.5rem;
+  padding: 0.5rem;
   font-size: 0.8rem;
-  line-height: 1rem;
   font-weight: 500;
   align-items: center;
-  cursor: pointer;
   background: #ffffff;
   border: 1px solid #000000;
   box-sizing: border-box;
@@ -65,10 +63,9 @@ to this section's matching END comment to see page-specific styles.
   position: fixed;
   right: 2px;
   bottom: 20px;
-}
-.btn--remix img {
-  margin-right: 0.5rem;
-  width: 12px;
+
+  display: flex;
+  gap: 0.5rem;
 }
 .btn--remix:hover {
   background-color: #d0fff1;
