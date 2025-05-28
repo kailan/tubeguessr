@@ -17,6 +17,8 @@ async function handleRequest(event) {
 
   const response = await publisherServer.serveRequest(request);
   if (response != null) {
+    // Cache the response for 30 minutes
+    response.headers.set("Cache-Control", "public, max-age=3600, immutable");
     return response;
   }
 
