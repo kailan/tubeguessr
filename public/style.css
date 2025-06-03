@@ -1,10 +1,8 @@
 :root {
   --color-bg: rgb(0, 15, 159);
-  --font-family: "HK Grotesk";
 }
 
 .btn--remix {
-  font-family: var(--font-family);
   padding: .5rem;
   font-size: .8rem;
   font-weight: 500;
@@ -36,7 +34,6 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: var(--font-family);
   background-color: var(--color-bg)
 }
 
