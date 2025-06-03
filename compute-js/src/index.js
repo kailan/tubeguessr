@@ -45,8 +45,8 @@ async function handleRequest(event) {
   if (response != null) {
     // Cache the response for 30 minutes
     response.headers.set("Cache-Control", "public, max-age=3600, immutable");
+
     if (response.headers.get("Content-Type") === "text/html") {
-      // Set the content security policy for HTML responses
       // Set performance and security headers
       response.headers.set("Alt-Svc", 'h3=":443";ma=86400,h3-29=":443";ma=86400,h3-27=":443";ma=86400');
       response.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
@@ -58,11 +58,10 @@ async function handleRequest(event) {
         "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self';"
       );
     }
+    return response;
   }
-  return response;
-}
 
-return new Response("Not found", { status: 404 });
+  return new Response("Not found", { status: 404 });
 }
 
 // eslint-disable-next-line no-restricted-globals
