@@ -3,17 +3,6 @@
   --font-family: "HK Grotesk";
 }
 
-@font-face {
-  font-family: HK Grotesk;
-  src: url(/assets/vendor/HKGrotesk-Regular.otf) format("opentype")
-}
-
-@font-face {
-  font-family: HK Grotesk;
-  font-weight: 700;
-  src: url(/assets/vendor/HKGrotesk-Bold.otf) format("opentype")
-}
-
 .btn--remix {
   font-family: var(--font-family);
   padding: .5rem;
