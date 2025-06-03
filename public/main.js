@@ -21,10 +21,10 @@ class App {
 
     // add tiles
     const tiles = L.tileLayer(
-      "https://api.mapbox.com/styles/v1/kailan/clnmjy811006901qpergtfrho/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoia2FpbGFuIiwiYSI6ImNreHh6MjNtNzJhd3oyb21wYjRkY2U0aGsifQ.tZzQ-GAom5_D8SLwrqmy-Q",
+      "/assets/vendor/tiles/{z}/{x}/{y}",
       {
-        minZoom: 10,
-        maxZoom: 16,
+        minZoom: 12,
+        maxZoom: 17,
         attribution:
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }

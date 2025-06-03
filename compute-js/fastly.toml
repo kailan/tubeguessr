@@ -10,17 +10,20 @@ service_id = "QYhKV5RGaqtsgNNMhtVre4"
 
 [local_server]
 
-  [local_server.kv_stores]
+[local_server.kv_stores]
 
-    [local_server.kv_stores.site-content]
-      file = "./static-publisher/kvstore.json"
-      format = "json"
+[local_server.kv_stores.site-content]
+file = "./static-publisher/kvstore.json"
+format = "json"
+
+[local_server.backends.mapbox]
+url = "https://api.mapbox.com"
 
 [scripts]
-  build = "npm run build"
+build = "npm run build"
 
 [setup]
 
-  [setup.kv_stores]
+[setup.kv_stores]
 
-    [setup.kv_stores.site-content]
+[setup.kv_stores.site-content]
