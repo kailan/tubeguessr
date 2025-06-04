@@ -51,7 +51,6 @@ async function handleRequest(event) {
       response.headers.set("Alt-Svc", 'h3=":443";ma=86400,h3-29=":443";ma=86400,h3-27=":443";ma=86400');
       response.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
       response.headers.set("X-Content-Type-Options", "nosniff");
-      response.headers.set("X-Frame-Options", "SAMEORIGIN");
       response.headers.set("Referrer-Policy", "same-origin");
       response.headers.set(
         "Content-Security-Policy",
