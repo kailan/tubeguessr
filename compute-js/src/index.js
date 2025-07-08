@@ -16,6 +16,13 @@ async function handleRequest(event) {
     return Response.redirect(url, 301);
   }
 
+  // Redirect `//` path requests to `/`
+  if (request.url.endsWith("//")) {
+    const url = new URL(request.url);
+    url.pathname = "/";
+    return Response.redirect(url, 301);
+  }
+
   // Handle tile requests
   if (request.url.includes("/assets/vendor/tiles/")) {
     if (request.headers.get("Referer") !== "https://www.tubeguessr.com/" && env("FASTLY_HOSTNAME") !== "localhost") {
